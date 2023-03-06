@@ -9,7 +9,7 @@ from news.models import Post, Category, PostCategory, User
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 
-from django.db.models.signals import m2m_changed
+
 
 
 
