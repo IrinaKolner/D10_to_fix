@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>Статья</h1>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save" />
+</form>
+<br>
+<!--{% if is_not_authors %}-->
+<!--<button> <a href="{% url 'upgrade' %}"> Хочу стать автором!</a> </button>-->
+<!--{% endif %}-->
+<br>
+<button> <a href='/accounts/logout/'>Выйти</a> </button>
+{% endblock content %}

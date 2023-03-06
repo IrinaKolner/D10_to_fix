@@ -1,0 +1,66 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+
+{% block title %}
+Posts
+{% endblock title %}
+
+{% block content %}
+<h1>Новости и статьи</h1>
+   <h3>{{ time_now|date:'d M Y' }}</h3>
+   <h3>Количество новостей и статей: {{ news_number|length }} </h3>
+   <hr>
+{% if is_not_subscriber %}
+<p class="text_center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm">Подписаться</a></p>
+{% endif %}
+   <hr>
+{% if category_news_list %}
+       <table>
+           <tr>
+               <td>Заголовок</td>
+               <td>Дата публикации</td>
+               <td>Текст</td>
+               <td>Категория</td>
+           </tr>
+           {% for news in category_news_list %}
+           <tr>
+               <td>{{ news.title|censor }}</td>
+               <td>{{ news.time_created }}</td>
+               <td>{{ news.text|truncatewords:20|censor }}</td>
+               <td>{{ news.categories }}</td>
+               <td>
+                   {% for category in news.categories.all %}
+                   <a href="{% url 'category_list' category.id %}">{{category}}</a>
+                   {% endfor %}
+               </td>
+           </tr>
+           {% endfor %}
+       </table>
+{% else %}
+<h2>Новостей нет</h2>
+{% endif %}
+
+
+<!--по идее, пагинация здесь не нужна-->
+<!--   {% if page_obj.has_previous %}-->
+<!--       <a href="?page=1">1</a>-->
+<!--       {% if page_obj.previous_page_number != 1 %}-->
+<!--           ...-->
+<!--           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>-->
+<!--       {% endif %}-->
+<!--   {% endif %}-->
+
+<!--   {{ page_obj.number }}-->
+
+<!--   {% if page_obj.has_next %}-->
+<!--       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>-->
+<!--       {% if paginator.num_pages != page_obj.next_page_number %}-->
+<!--           ...-->
+<!--           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>-->
+<!--       {% endif %}-->
+<!--   {% endif %}-->
+
+
+{% endblock content %}
+
