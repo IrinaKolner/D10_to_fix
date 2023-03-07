@@ -1,7 +1,5 @@
 from celery import shared_task
-
 import datetime
-
 from django.conf import settings
 
 
@@ -12,41 +10,41 @@ from django.core.mail import EmailMultiAlternatives
 
 
 
+# я не знаю, как нужно все это переделать, чтобы оно работало
+# def send_notifications(preview, pk, title, subscribers):
+#     html_content = render_to_string(
+#         'post_created_email.html',
+#         {
+#             'text': preview,
+#             'link': f'{settings.SITE_URL}/posts/{pk}'
+#             # 'link': f'http://127.0.0.1:8000/posts/{pk}'
+#         }
+#     )
 
-def send_notifications(preview, pk, title, subscribers):
-    html_content = render_to_string(
-        'post_created_email.html',
-        {
-            'text': preview,
-            'link': f'{settings.SITE_URL}/posts/{pk}'
-            # 'link': f'http://127.0.0.1:8000/posts/{pk}'
-        }
-    )
+#     msg = EmailMultiAlternatives(
+#         subject=title,
+#         body='',
+#         from_email=settings.DEFAULT_FROM_EMAIL,
+#         # from_email='ann.annannanna@yandex.ru',
+#         to=subscribers,
+#     )
 
-    msg = EmailMultiAlternatives(
-        subject=title,
-        body='',
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        # from_email='ann.annannanna@yandex.ru',
-        to=subscribers,
-    )
-
-    msg.attach_alternative(html_content, 'text/html')
-    msg.send()
+#     msg.attach_alternative(html_content, 'text/html')
+#     msg.send()
 
 
 
-@shared_task
-def notify_about_new_post():
+# @shared_task
+# def notify_about_new_post():
 
-    categories = Category.news_category.all()
-    subscribers: list[str] = []
-    for category in categories:
-        subscribers += category.subscribers.all()
+#     categories = Category.news_category.all()
+#     subscribers: list[str] = []
+#     for category in categories:
+#         subscribers += category.subscribers.all()
 
-    subscribers = [s.email for s in subscribers]
+#     subscribers = [s.email for s in subscribers]
 
-    send_notifications(Post.preview(), Post.pk, Post.title, subscribers)
+#     send_notifications(Post.preview(), Post.pk, Post.title, subscribers)
 
 
 
