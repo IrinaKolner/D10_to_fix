@@ -3,7 +3,7 @@ import datetime
 from django.conf import settings
 
 
-from news.models import Post, Category, PostCategory, User
+from news.models import Post, Category, User
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 
