@@ -79,7 +79,7 @@ class NewsCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         post = form.save(commit=False)
         post.post_type = 'NE'
 
-        notify_about_new_post.delay()
+#         notify_about_new_post.delay()
         return super().form_valid(form)
 
 
