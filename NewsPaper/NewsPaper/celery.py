@@ -9,12 +9,12 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()
 
-# проверка; не забыть поменять на понедельник + 8 по Москве - это 5
+# пон 8 по Москве - это 5 UTC
 app.conf.beat_schedule = {
     'send_all_week_posts_every_monday_8am': {
         'task': 'news.tasks.all_week_posts',
-        # 'schedule': crontab(hour=8, minute=0, day_of_week='monday'),
-        'schedule': crontab(hour=18, minute=47, day_of_week='sunday'),
+        'schedule': crontab(hour=5, minute=0, day_of_week='monday'),
+#         'schedule': crontab(hour=18, minute=47, day_of_week='sunday'),
         'args': (),
     },
 }
